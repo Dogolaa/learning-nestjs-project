@@ -8,8 +8,9 @@ export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
   @Get()
-  findAllUsers(@Res() response: Response) {
-    return response.status(200).json(this.usersService.findAllUsers());
+  async findAllUsers(@Res() response: Response) {
+    const users = await this.usersService.findAllUsers();
+    return response.status(200).json(users);
   }
 
   //   @Get(':id')
