@@ -29,4 +29,18 @@ export class UsersService {
     const createdUser = await this.usersRepository.save(user);
     return createdUser;
   }
+
+
+  async deleteUser(id: string): Promise<UserDomain> {
+    const user = await this.usersRepository.findOne({ where: { id } });
+  
+    if (!user) {
+      throw new HttpException('Users not found!', HttpStatus.NOT_FOUND);
+    }
+  
+    await this.usersRepository.delete(id);
+  
+    return user;
+  }
+  
 }
